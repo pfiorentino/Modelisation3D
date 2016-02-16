@@ -9,7 +9,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     QString meshesPath = "/Users/paul/Google Drive/Cours/Modelisation 3D/meshes/";
-    QString meshName = "dragon_fine.mesh";
+    QString meshName = "bunny.mesh";
 
     qDebug() << "\x1B[2J\x1B[H";
 
@@ -21,8 +21,11 @@ int main(int argc, char *argv[])
     cout << "Min:" << endl << surface.getMin().toString().toStdString() << endl << endl;
     cout << "Max:" << endl << surface.getMax().toString().toStdString() << endl << endl;
 
+    cout << "Avg neighbours: " << QString::number(surface.getAverageNeighbours()).toStdString() << endl;
+    cout << "Avg triangles: " << QString::number(surface.getAverageTriangles()).toStdString() << endl << endl;
+
     cout << "Generating resized surface..." << endl;
-    Surface3D resizedSurface = surface.resize(-0.01);
+    Surface3D resizedSurface = surface.resize(0);
     resizedSurface.saveSurfaceFile(meshesPath);
 
     string command = "\"/Users/paul/Google Drive/Cours/Modelisation 3D/medit-osx\" \""+meshesPath.toStdString()+resizedSurface.getMeshFileName().toStdString()+"\"";

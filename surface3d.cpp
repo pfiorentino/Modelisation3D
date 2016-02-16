@@ -76,19 +76,6 @@ const Surface3D Surface3D::resize(const float factor) {
 }
 
 const Point3D Surface3D::computeNodeNormal(int nodeIndex) {
-//    int _facetsCount = 0;
-//    float _x = 0, _y = 0, _z = 0;
-//    for (int i = 0; i < _facetsList.size(); i++){
-//  TODO : Refactor with Node class
-//        if (_facetsList[i]->isVertice(nodeIndex)){
-//            Vertice tmp = computeNormal(i);
-//            _x += tmp.getX();
-//            _y += tmp.getY();
-//            _z += tmp.getZ();
-//            _facetsCount++;
-//        }
-//    }
-
     float _x = 0, _y = 0, _z = 0;
 
     Node* node = getNode(nodeIndex);
@@ -165,6 +152,24 @@ Triangle* Surface3D::getTriangle(const int facetIndex) const {
 QString Surface3D::getMeshFileName() const
 {
     return _meshFileName;
+}
+
+float Surface3D::getAverageNeighbours() const {
+    int neighboursSum = 0;
+    for (int i = 0; i < getNbNodes(); ++i) {
+        neighboursSum += getNode(i)->nb_neighbours();
+    }
+
+    return (float) neighboursSum/(float) getNbNodes();
+}
+
+float Surface3D::getAverageTriangles() const {
+    int trianglesSum = 0;
+    for (int i = 0; i < getNbNodes(); ++i) {
+        trianglesSum += getNode(i)->nb_triangles();
+    }
+
+    return (float) trianglesSum/(float) getNbNodes();
 }
 
 Surface3D Surface3D::parseSurfaceFile(const QString filePath, const QString meshFileName) {

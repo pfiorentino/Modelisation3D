@@ -1,7 +1,7 @@
 #include "node.h"
 
 Node::Node(const Point3D pt):
-    _pt(pt)
+    _nb_triangles(0), _nb_neighbours(0), _pt(pt)
 {
 
 }
@@ -16,8 +16,10 @@ int Node::getTriangle(const int index){
 }
 
 void Node::addNeighbour(const int nodeIndex){
-    _neighbours.append(nodeIndex);
-    ++_nb_neighbours;
+    if (!_neighbours.contains(nodeIndex)){
+        _neighbours.append(nodeIndex);
+        ++_nb_neighbours;
+    }
 }
 
 Point3D Node::pt() const

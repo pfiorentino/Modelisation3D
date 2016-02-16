@@ -25,6 +25,8 @@ public:
     int getNbTriangles() const;
     Triangle* getTriangle(const int facetIndex) const;
     QString getMeshFileName() const;
+    float getAverageNeighbours() const;
+    float getAverageTriangles() const;
 
     void saveSurfaceFile(const QString savePath) const;
     static Surface3D parseSurfaceFile(const QString filePath, const QString meshFileName);
