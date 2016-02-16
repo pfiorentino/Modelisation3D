@@ -11,7 +11,7 @@ bool Triangle::isVertice(const int verticeIndex){
 }
 
 QString Triangle::toMeshString() const {
-    return QString::number(_p1) + " " + QString::number(_p2) + " " + QString::number(_p3) + " 508";
+    return QString::number(_p1+1) + " " + QString::number(_p2+1) + " " + QString::number(_p3+1) + " 508";
 }
 
 Triangle* Triangle::copy() const {
