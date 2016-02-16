@@ -8,6 +8,7 @@ class Vertice
 public:
     Vertice(const float x, const float y, const float z);
     QString toString() const;
+    QString toMeshString() const;
     float getX();
     float getY();
     float getZ();

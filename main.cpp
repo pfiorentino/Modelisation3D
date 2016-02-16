@@ -9,7 +9,7 @@ using namespace std;
 
 Surface3D parseFile(QString meshName) {
     QString meshesPath = "/Users/paul/Google Drive/Cours/Modelisation 3D/meshes/";
-    Surface3D surface = Surface3D();
+    Surface3D surface = Surface3D(meshName);
 
     QFile inputFile(meshesPath+meshName);
     if (inputFile.open(QIODevice::ReadOnly))
@@ -57,6 +57,34 @@ Surface3D parseFile(QString meshName) {
     return surface;
 }
 
+void saveSurfaceFile(Surface3D surface) {
+    QString meshesPath = "/Users/paul/Google Drive/Cours/Modelisation 3D/meshes/";
+    QFile outputFile(meshesPath+surface.getMeshFileName());
+
+    if (outputFile.open(QIODevice::WriteOnly))
+    {
+        QTextStream out(&outputFile);
+        out << "MeshVersionFormatted 1" << endl;
+        out << "Dimension" << endl;
+        out << "3" << endl;
+        out << "Vertices" << endl;
+        out << surface.getNbNodes() << endl;
+        for (int i = 0; i < surface.getNbNodes(); i++) {
+            out << surface.getNode(i)->toMeshString() << endl;
+        }
+
+        out << "Triangles" << endl;
+        out << surface.getNbTriangles() << endl;
+        for (int i = 0; i < surface.getNbTriangles(); i++) {
+            out << surface.getTriangle(i)->toMeshString() << endl;
+        }
+
+        out << "End" << endl;
+        out.flush();
+        outputFile.close();
+    }
+}
+
 int main(int argc, char *argv[])
 {
     qDebug() << "\x1B[2J\x1B[H";
@@ -68,6 +96,14 @@ int main(int argc, char *argv[])
 
     cout << "Min:" << endl << surface.getMin().toString().toStdString() << endl << endl;
     cout << "Max:" << endl << surface.getMax().toString().toStdString() << endl << endl;
+
+    cout << "Generating resized surface..." << endl;
+    Surface3D resizedSurface = surface.resize(-0.01);
+    saveSurfaceFile(resizedSurface);
+
+    string command = "\"/Users/paul/Google Drive/Cours/Modelisation 3D/medit-osx\" \"/Users/paul/Google Drive/Cours/Modelisation 3D/meshes/"+QString(resizedSurface.getMeshFileName()).toStdString()+"\"";
+    system(command.c_str());
+
     return 0;
 }
 
