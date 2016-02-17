@@ -1,14 +1,14 @@
-#include "hexaedra.h"
+#include "hexahedra.h"
 
-Hexaedra::Hexaedra()
+Hexahedra::Hexahedra()
 {
 }
 
-void Hexaedra::addPoint(int point) {
+void Hexahedra::addPoint(int point) {
     _points.append(point);
 }
 
-QString Hexaedra::toMeshString() const {
+QString Hexahedra::toMeshString() const {
     QString result = "";
     for (int i = 0; i < 8; ++i) {
         result += QString::number(_points[i]+1)+" ";

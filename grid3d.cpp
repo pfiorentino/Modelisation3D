@@ -16,7 +16,7 @@ int Grid3D::getNbNodes() const
     return (_nx+1)*(_ny+1)*(_nz+1);
 }
 
-int Grid3D::getNbHexaedras() const
+int Grid3D::getNbHexahedras() const
 {
     return _nx*_ny*_nz;
 }
@@ -45,14 +45,14 @@ void Grid3D::saveGridFile(const QString filePath) const {
 
 
         out << "Hexahedra" << endl;
-        out << getNbHexaedras() << endl;
+        out << getNbHexahedras() << endl;
 
         int nnx = _nx+1, nny = _ny+1;
         for (int k = 0; k < _nz; ++k) {
             for (int j = 0; j < _ny; ++j) {
                 for (int i = 0; i < _nx; ++i) {
 
-                    Hexaedra hex;
+                    Hexahedra hex;
                     hex.addPoint(i+nnx*j+nnx*nny*k);
                     hex.addPoint(i+nnx*j+nnx*nny*(k+1));
                     hex.addPoint((i+1)+nnx*j+nnx*nny*(k+1));

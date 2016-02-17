@@ -9,7 +9,7 @@ SOURCES += main.cpp \
     point3d.cpp \
     node.cpp \
     grid3d.cpp \
-    hexaedra.cpp
+    hexahedra.cpp
 
 HEADERS += \
     triangle.h \
@@ -17,4 +17,4 @@ HEADERS += \
     point3d.h \
     node.h \
     grid3d.h \
-    hexaedra.h
+    hexahedra.h

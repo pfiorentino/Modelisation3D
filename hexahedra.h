@@ -4,10 +4,10 @@
 #include <QString>
 #include <QVector>
 
-class Hexaedra
+class Hexahedra
 {
 public:
-    Hexaedra();
+    Hexahedra();
     void addPoint(int point);
     QString toMeshString() const;
 private:

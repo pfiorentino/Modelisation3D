@@ -2,7 +2,7 @@
 #define GRID3D_H
 
 #include "point3d.h"
-#include "hexaedra.h"
+#include "hexahedra.h"
 #include <QString>
 #include <QFile>
 
@@ -11,7 +11,7 @@ class Grid3D
 public:
     Grid3D(const Point3D origin, const int nx, const int ny, const int nz);
     int getNbNodes() const;
-    int getNbHexaedras() const;
+    int getNbHexahedra() const;
 
     void saveGridFile(const QString filePath) const;
 private:
