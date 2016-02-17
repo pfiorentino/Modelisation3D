@@ -12,6 +12,7 @@ public:
     float z() const;
 
     QString toString() const;
+    QString toMeshString() const;
 private:
     const float _x, _y, _z;
 };

@@ -7,10 +7,14 @@ SOURCES += main.cpp \
     triangle.cpp \
     surface3d.cpp \
     point3d.cpp \
-    node.cpp
+    node.cpp \
+    grid3d.cpp \
+    hexaedra.cpp
 
 HEADERS += \
     triangle.h \
     surface3d.h \
     point3d.h \
-    node.h
+    node.h \
+    grid3d.h \
+    hexaedra.h
