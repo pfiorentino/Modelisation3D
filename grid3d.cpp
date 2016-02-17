@@ -16,7 +16,7 @@ int Grid3D::getNbNodes() const
     return (_nx+1)*(_ny+1)*(_nz+1);
 }
 
-int Grid3D::getNbHexahedras() const
+int Grid3D::getNbHexahedra() const
 {
     return _nx*_ny*_nz;
 }
@@ -32,40 +32,26 @@ void Grid3D::saveGridFile(const QString filePath) const {
         out << "Vertices" << endl;
         out << getNbNodes() << endl;
 
-        QVector<Point3D*> points;
-        for (int k = _origin.z(); k < _origin.z()+_nz+1; ++k) {
-            for (int j = _origin.y(); j < _origin.y()+_ny+1; ++j) {
-                for (int i = _origin.x(); i < _origin.x()+_nx+1; ++i) {
-                    Point3D* tmpPoint = new Point3D(i, j, k);
-                    points.append(tmpPoint);
-                    out << tmpPoint->toMeshString() << endl;
+        QVector<Hexahedra*> hexs;
+        for (int k = 0; k <= _nz; ++k) {
+            for (int j = 0; j <= _ny; ++j) {
+                for (int i = 0; i <= _nx; ++i) {
+                    Point3D tmpPoint(i+_origin.x(), j+_origin.y(), k+_origin.z());
+                    out << tmpPoint.toMeshString() << endl;
+
+                    if (k != _nz && j != _ny && i != _nx){
+                        Hexahedra* hex = new Hexahedra(Point3D(i, j, k), _nx, _ny);
+                        hexs.append(hex);
+                    }
                 }
             }
         }
 
-
         out << "Hexahedra" << endl;
-        out << getNbHexahedras() << endl;
+        out << getNbHexahedra() << endl;
 
-        int nnx = _nx+1, nny = _ny+1;
-        for (int k = 0; k < _nz; ++k) {
-            for (int j = 0; j < _ny; ++j) {
-                for (int i = 0; i < _nx; ++i) {
-
-                    Hexahedra hex;
-                    hex.addPoint(i+nnx*j+nnx*nny*k);
-                    hex.addPoint(i+nnx*j+nnx*nny*(k+1));
-                    hex.addPoint((i+1)+nnx*j+nnx*nny*(k+1));
-                    hex.addPoint((i+1)+nnx*j+nnx*nny*k);
-
-                    hex.addPoint(i+nnx*(j+1)+nnx*nny*k);
-                    hex.addPoint(i+nnx*(j+1)+nnx*nny*(k+1));
-                    hex.addPoint((i+1)+nnx*(j+1)+nnx*nny*(k+1));
-                    hex.addPoint((i+1)+nnx*(j+1)+nnx*nny*k);
-
-                    out << hex.toMeshString() << endl;
-                }
-            }
+        for (int i = 0; i < hexs.size(); ++i) {
+            out << hexs[i]->toMeshString() << endl;
         }
 
         out << "End" << endl;
