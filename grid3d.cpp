@@ -6,18 +6,14 @@
 using namespace std;
 
 Grid3D::Grid3D(const Point3D origin, const int nx, const int ny, const int nz):
-    _origin(origin), _nx(nx), _ny(ny), _nz(nz)
-{
-
+    _origin(origin), _nx(nx), _ny(ny), _nz(nz) {
 }
 
-int Grid3D::getNbNodes() const
-{
+int Grid3D::getNbNodes() const {
     return (_nx+1)*(_ny+1)*(_nz+1);
 }
 
-int Grid3D::getNbHexahedra() const
-{
+int Grid3D::getNbHexahedra() const {
     return _nx*_ny*_nz;
 }
 

@@ -5,8 +5,7 @@
 #include <QVector>
 #include "point3d.h"
 
-class Hexahedra
-{
+class Hexahedra {
 public:
     Hexahedra(Point3D origin, int nx, int ny);
     QString toMeshString() const;

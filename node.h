@@ -5,8 +5,7 @@
 #include <QVector>
 #include "point3d.h"
 
-class Node
-{
+class Node {
 public:
     Node(const Point3D pt);
     void addTriangle(const int triangleIndex);

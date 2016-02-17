@@ -6,8 +6,7 @@
 #include <QString>
 #include <QFile>
 
-class Grid3D
-{
+class Grid3D {
 public:
     Grid3D(const Point3D origin, const int nx, const int ny, const int nz);
     int getNbNodes() const;
