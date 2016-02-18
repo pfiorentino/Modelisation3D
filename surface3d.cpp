@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Surface3D::Surface3D(QString meshFileName):
+Surface3D::Surface3D(const QString meshFileName):
     _nb_nodes(0), _nb_facets(0), _meshFileName(meshFileName)
 {
 }

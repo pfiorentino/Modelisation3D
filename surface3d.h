@@ -11,7 +11,7 @@
 class Surface3D
 {
 public:
-    Surface3D(QString meshFileName);
+    Surface3D(const QString meshFileName);
     void addNode(Node* node);
     void addTriangle(Triangle* triangle);
     void addAllTriangles(const QVector<Triangle*> triangles);
