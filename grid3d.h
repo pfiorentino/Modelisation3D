@@ -18,10 +18,10 @@ public:
     void saveGridFile(const QString filePath) const;
     float getProp(int index) const;
     void setProp(int index, float value);
-    void setPropsValues(const ImplicitObject &object);
+    void setPropsValues(const ImplicitObject &object, const float d);
 
     int getVerticeIndex(const Point3D &pt) const;
-    Point3D* getIntersectValue(const Point3D &pt1, const float dist1, const Point3D &pt2, const float dist2);
+    Point3D* getIntersectValue(const Point3D &pt1, const float dist1, const Point3D &pt2, const float dist2, const float d);
     void writeIntersect(const QString filePath) const;
 private:
     Point3D _origin;

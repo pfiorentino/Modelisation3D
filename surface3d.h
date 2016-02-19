@@ -13,21 +13,25 @@ class Surface3D
 public:
     Surface3D(const QString meshFileName);
     void addNode(Node* node);
+
     void addTriangle(Triangle* triangle);
     void addAllTriangles(const QVector<Triangle*> triangles);
+    Triangle* getTriangle(const int facetIndex) const;
+    int getNbTriangles() const;
+
     const Point3D computeNormal(int facetIndex);
-    const Surface3D resize(const float factor);
     const Point3D computeNodeNormal(int nodeIndex);
+    const Surface3D resize(const float factor);
+
     const Point3D getMin();
     const Point3D getMax();
-    int getNbNodes() const;
-    Node* getNode(const int nodeIndex) const;
-    int getNbTriangles() const;
-    Triangle* getTriangle(const int facetIndex) const;
-    QString getMeshFileName() const;
     float getAverageNeighbours() const;
     float getAverageTriangles() const;
 
+    int getNbNodes() const;
+    Node* getNode(const int nodeIndex) const;
+
+    QString getMeshFileName() const;
     void saveSurfaceFile(const QString savePath) const;
     static Surface3D parseSurfaceFile(const QString filePath, const QString meshFileName);
 

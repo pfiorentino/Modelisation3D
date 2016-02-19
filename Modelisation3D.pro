@@ -13,7 +13,9 @@ SOURCES += main.cpp \
     sphere.cpp \
     implicitobject.cpp \
     doublesphere.cpp \
-    nsphere.cpp
+    nsphere.cpp \
+    points.cpp \
+    layout.cpp
 
 HEADERS += \
     triangle.h \
@@ -25,4 +27,6 @@ HEADERS += \
     sphere.h \
     implicitobject.h \
     doublesphere.h \
-    nsphere.h
+    nsphere.h \
+    points.h \
+    layout.h

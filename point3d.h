@@ -2,6 +2,7 @@
 #define POINT3D_H
 
 #include <QString>
+#include <math.h>
 
 class Point3D
 {
@@ -10,6 +11,8 @@ public:
     float x() const;
     float y() const;
     float z() const;
+
+    float getDistance(const Point3D &pt) const;
 
     QString toString() const;
     QString toMeshString() const;

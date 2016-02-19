@@ -65,7 +65,7 @@ void Grid3D::setProp(int index, float value) {
     _props.insert(index, value);
 }
 
-void Grid3D::setPropsValues(const ImplicitObject &object) {
+void Grid3D::setPropsValues(const ImplicitObject &object, const float d) {
     for (int k = _origin.z(); k <= _nz+_origin.z(); ++k) {
         for (int j = _origin.y(); j <= _ny+_origin.y(); ++j) {
             for (int i = _origin.x(); i <= _nx+_origin.x(); ++i) {
@@ -85,22 +85,22 @@ void Grid3D::setPropsValues(const ImplicitObject &object) {
                 Point3D ptx(i+1, j, k);
                 float distx = getProp(getVerticeIndex(ptx));
 
-                if (distx != 0 && dist/distx <= 0) {
-                    _intersect.append(getIntersectValue(pt, dist, ptx, distx));
+                if ((dist <= d && distx >= d) || (dist >= d && distx <= d)) {
+                    _intersect.append(getIntersectValue(pt, dist, ptx, distx, d));
                 }
 
                 Point3D pty(i, j+1, k);
                 float disty = getProp(getVerticeIndex(pty));
 
-                if (disty != 0 && dist/disty <= 0) {
-                    _intersect.append(getIntersectValue(pt, dist, pty, disty));
+                if ((dist <= d && disty >= d) || (dist >= d && disty <= d)) {
+                    _intersect.append(getIntersectValue(pt, dist, pty, disty, d));
                 }
 
                 Point3D ptz(i, j, k+1);
                 float distz = getProp(getVerticeIndex(ptz));
 
-                if (distz != 0 && dist/distz <= 0) {
-                    _intersect.append(getIntersectValue(pt, dist, ptz, distz));
+                if ((dist <= d && distz >= d) || (dist >= d && distz <= d)) {
+                    _intersect.append(getIntersectValue(pt, dist, ptz, distz, d));
                 }
             }
         }
@@ -113,10 +113,10 @@ int Grid3D::getVerticeIndex(const Point3D &pt) const {
     return pt.x()+nnx*pt.y()+nnx*nny*pt.z();
 }
 
-Point3D* Grid3D::getIntersectValue(const Point3D &pt1, const float dist1, const Point3D &pt2, const float dist2)
+Point3D* Grid3D::getIntersectValue(const Point3D &pt1, const float dist1, const Point3D &pt2, const float dist2, const float d)
 {
-    if (dist2 != 0 && dist1/dist2 <= 0) {
-        float t = fabs(dist1/(dist1-dist2));
+    if ((dist1 <= d && dist2 >= d) || (dist1 >= d && dist2 <= d)) {
+        float t = fabs((dist1-d)/(dist1-dist2));
         return new Point3D((1-t)*pt1.x()+t*pt2.x(),
                            (1-t)*pt1.y()+t*pt2.y(),
                            (1-t)*pt1.z()+t*pt2.z());

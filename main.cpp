@@ -7,6 +7,7 @@
 #include "sphere.h"
 #include "doublesphere.h"
 #include "nsphere.h"
+#include "layout.h"
 
 using namespace std;
 
@@ -27,6 +28,7 @@ int main(int argc, char *argv[]) {
         cout << "2) Grid3D" << endl;
         cout << "3) Spheres" << endl;
         cout << "4) Cylinder" << endl;
+        cout << "5) Layout" << endl;
         cout << "99) Exit" << endl << endl;
         cout << "choice: ";
 
@@ -35,7 +37,7 @@ int main(int argc, char *argv[]) {
         switch (choice) {
             case 1: {
                 QString meshesPath = "/Users/paul/Google Drive/Cours/Modelisation 3D/meshes/";
-                QString meshName = "part.mesh";
+                QString meshName = "bunny.mesh";
 
                 cout << "Computing \""+meshName.toStdString()+"\"" << endl << endl;
 
@@ -51,7 +53,7 @@ int main(int argc, char *argv[]) {
                 cout << "Avg triangles: " << QString::number(surface.getAverageTriangles()).toStdString() << endl << endl;
 
                 cout << "Generating resized surface..." << endl;
-                Surface3D resizedSurface = surface.resize(-0.001);
+                Surface3D resizedSurface = surface.resize(-0.10);
                 resizedSurface.saveSurfaceFile(meshesPath);
 
                 displayMesh(meshesPath.toStdString()+resizedSurface.getMeshFileName().toStdString());
@@ -59,7 +61,7 @@ int main(int argc, char *argv[]) {
             }
             case 2: {
                 cout << "Grid generation..." << endl << endl;
-                Grid3D grid(Point3D(0, 0, 0), 50, 50, 50);
+                Grid3D grid(Point3D(0, 0, 0), 5, 2, 3);
 
                 grid.saveGridFile(meshesPath+"grid3D.mesh");
 
@@ -73,7 +75,7 @@ int main(int argc, char *argv[]) {
                 Sphere s1(Point3D(15, 15, 15), 15);
                 Sphere s2(Point3D(35, 35, 35), 15);
                 DoubleSphere ds(s1, s2);
-                grid.setPropsValues(ds);
+                grid.setPropsValues(ds, 0);
                 grid.writeIntersect(meshesPath+"sphere.mesh");
 
                 displayMesh(meshesPath.toStdString()+"sphere.mesh");
@@ -98,10 +100,24 @@ int main(int argc, char *argv[]) {
 
                 Sphere s99(Point3D(25, 25, 25), 35);
 
-                grid.setPropsValues(ns);
+                grid.setPropsValues(ns, 0);
                 grid.writeIntersect(meshesPath+"cylinder.mesh");
 
                 displayMesh(meshesPath.toStdString()+"cylinder.mesh");
+                break;
+            }
+            case 5: {
+                cout << "Layout generation..." << endl << endl;
+                Grid3D grid(Point3D(0, 0, 0), 30, 30, 30);
+
+                Layout layout(1, 0, 0, 15);
+                cout << layout.getDistance(Point3D(0, 0, 0)) << endl;
+
+                grid.setPropsValues(layout, 0);
+                grid.writeIntersect(meshesPath+"layout.mesh");
+
+                displayMesh(meshesPath.toStdString()+"layout.mesh");
+
                 break;
             }
             case 99: {
